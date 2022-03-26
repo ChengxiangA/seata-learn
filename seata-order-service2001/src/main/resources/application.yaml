@@ -1,0 +1,46 @@
+server:
+  port: 2001
+
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.26.213.250
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.26.213.250:3306/seata_order?serverTimezone=Asia/Shanghai
+    username: root
+    password: chengxiang
+
+feign:
+  hystrix:
+    enabled: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  config-location: classpath:mybatis-config.xml
+
+seata:
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 120.26.213.250:8848
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+      cluster: default
+  config:
+    type: nacos
+    nacos:
+      server-addr: 120.26.213.250:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+      data-id: seataServer.properties
+  tx-service-group: order_group
+
+
